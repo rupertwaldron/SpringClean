@@ -2,7 +2,10 @@ package com.ruppyrup.springclean.controllers;
 
 import com.ruppyrup.springclean.dto.TranslationRequest;
 
-public class RequestContext {
+public final class RequestContext {
+
+  private RequestContext() {
+  }
 
   private static final InheritableThreadLocal<TranslationRequest> REQUEST_THREAD_LOCAL = new InheritableThreadLocal<>();
 

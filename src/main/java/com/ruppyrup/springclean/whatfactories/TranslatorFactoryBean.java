@@ -21,10 +21,10 @@ public class TranslatorFactoryBean implements FactoryBean<Translator>, BeanFacto
   public Translator getObject() {
     log.info("Request body = " + RequestContext.get());
 
-    return switch (RequestContext.get().getLanguage().toLowerCase()) {
+    return switch (RequestContext.get().language().toLowerCase()) {
       case "spanish" -> beanFactory.getBean(SpanishTranslator.class);
       case "french" -> beanFactory.getBean(FrenchTranslator.class);
-      default -> throw new LanguageNotRecognisedException("Invalid language :: " + RequestContext.get().getLanguage());
+      default -> throw new LanguageNotRecognisedException("Invalid language :: " + RequestContext.get().language());
     };
   }
 
