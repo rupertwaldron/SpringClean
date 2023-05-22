@@ -30,13 +30,10 @@ import static org.hamcrest.core.StringContains.containsString;
 @ExtendWith(LoggingExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TranslatorIntegrationTest {
-
     @LocalServerPort
     private int port;
-
     @Autowired
     private TestRestTemplate restTemplate;
-
     private HttpHeaders headers;
 
 
@@ -50,9 +47,7 @@ class TranslatorIntegrationTest {
 
     @Test
     void translateInputToFrench() {
-        TranslationRequest body = new TranslationRequest();
-        body.setInput("Text to translate");
-        body.setLanguage("french");
+        TranslationRequest body = new TranslationRequest("Text to translate", "french");
 
         HttpEntity<TranslationRequest> entity = new HttpEntity<>(body, headers);
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -64,14 +59,12 @@ class TranslatorIntegrationTest {
 
         final ResponseEntity<String> response = restTemplate.postForEntity(uriComponents.toUriString(), entity, String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), containsString("French translating Text to translate"));
+        assertThat(response.getBody(), containsString("French translation of \"Text to translate\""));
     }
 
   @Test
   void translateInputToSpanish() {
-    TranslationRequest body = new TranslationRequest();
-    body.setInput("Text to translate");
-    body.setLanguage("spanish");
+    TranslationRequest body = new TranslationRequest("Text to translate", "spanish");
 
     HttpEntity<TranslationRequest> entity = new HttpEntity<>(body, headers);
     UriComponents uriComponents = UriComponentsBuilder.newInstance()
@@ -83,14 +76,12 @@ class TranslatorIntegrationTest {
 
     final ResponseEntity<String> response = restTemplate.postForEntity(uriComponents.toUriString(), entity, String.class);
     assertThat(response.getStatusCode(), is(HttpStatus.OK));
-    assertThat(response.getBody(), containsString("Spanish translating Text to translate"));
+    assertThat(response.getBody(), containsString("Spanish translation of \"Text to translate\""));
   }
 
   @Test
   void errorWhenTranslatingInvalidLanguage() {
-    TranslationRequest body = new TranslationRequest();
-    body.setInput("Text to translate");
-    body.setLanguage("german");
+    TranslationRequest body = new TranslationRequest("Text to translate", "german");
 
     HttpEntity<TranslationRequest> entity = new HttpEntity<>(body, headers);
     UriComponents uriComponents = UriComponentsBuilder.newInstance()

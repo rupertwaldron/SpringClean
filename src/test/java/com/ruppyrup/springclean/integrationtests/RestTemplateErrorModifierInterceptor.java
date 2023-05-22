@@ -2,7 +2,7 @@ package com.ruppyrup.springclean.integrationtests;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
@@ -42,7 +42,7 @@ public class RestTemplateErrorModifierInterceptor
       }
 
       @Override
-      public HttpStatus getStatusCode() throws IOException {
+      public HttpStatusCode getStatusCode() throws IOException {
         return response.getStatusCode();
       }
 
