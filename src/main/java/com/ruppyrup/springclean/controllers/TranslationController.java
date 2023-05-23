@@ -22,9 +22,11 @@ public class TranslationController {
 
   @PostMapping
   public String translate(@RequestBody TranslationRequest request) {
+    long start = System.nanoTime();
     String inputToTranslate = request.text();
     log.info("Translation request " + request);
-    return translator.translate(inputToTranslate);
+    String translatedText = translator.translate(inputToTranslate);
+    return translatedText + " translated in " + (System.nanoTime() - start)/1000 + "uSec";
   }
 
 }
