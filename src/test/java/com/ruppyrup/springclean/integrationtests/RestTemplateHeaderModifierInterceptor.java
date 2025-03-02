@@ -11,6 +11,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 
+/**
+ * This interceptor adds a header to the response - doesn't work anymore
+ */
 public class RestTemplateHeaderModifierInterceptor implements HandlerInterceptor, ClientHttpRequestInterceptor {
 
   @Override

@@ -11,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@ServletComponentScan
 @TestConfiguration
 public class IntegrationTestConfig {
 
@@ -23,7 +22,7 @@ public class IntegrationTestConfig {
       interceptors = new ArrayList<>();
     }
     interceptors.add(new RestTemplateErrorModifierInterceptor());
-//    interceptors.add(new RestTemplateHeaderModifierInterceptor());
+    interceptors.add(new RestTemplateHeaderModifierInterceptor()); // doesn't work anymore
     testRestTemplate.getRestTemplate().setInterceptors(interceptors);
     return testRestTemplate;
   }
