@@ -25,7 +25,7 @@ public class TranslationController {
         long start = System.nanoTime();
         String inputToTranslate = request.text();
         log.info("Translation request " + request);
-        String translatedText = translationService.translate(inputToTranslate);
+        String translatedText = translationService.translate(inputToTranslate, request.language());
         return translatedText + " translated in " + (System.nanoTime() - start) / 1000 + "uSec";
     }
 

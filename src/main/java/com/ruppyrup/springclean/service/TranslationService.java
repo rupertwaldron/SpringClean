@@ -13,8 +13,8 @@ public class TranslationService {
         this.translator = translator;
     }
 
-    @Cacheable(value = "translations", key = "#input")
-    public String translate(String input) {
+    @Cacheable(value = "translations", key = "#input + '_' + #language") // just using language for caching
+    public String translate(String input, String language) {
         return translator.translate(input);
     }
 }

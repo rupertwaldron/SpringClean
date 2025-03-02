@@ -1,17 +1,12 @@
 package com.ruppyrup.springclean.integrationtests;
 
-import com.ruppyrup.springclean.controllers.TranslationController;
 import com.ruppyrup.springclean.dto.TranslationRequest;
 import com.ruppyrup.springclean.service.TranslationService;
-import com.ruppyrup.springclean.whatfactories.FrenchTranslator;
-import com.ruppyrup.springclean.whatfactories.Translator;
-import com.ruppyrup.springclean.whatfactories.TranslatorConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
@@ -20,7 +15,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -82,6 +76,6 @@ public class CachingTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), containsString("French translation of \"Text to translate\""));
 
-        verify(translationService, times(1)).translate(TEXT_TO_TRANSLATE);
+        verify(translationService, times(1)).translate(TEXT_TO_TRANSLATE, "french");
     }
 }
